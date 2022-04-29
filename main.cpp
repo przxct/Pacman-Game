@@ -32,43 +32,30 @@ int main( int argc, char* args[] )
     }
 
 
-    //Main loop flag
-    bool quit = false;
-
-    //Create Walls
-    createWalls();
-    createPoint();
-
-    //Create Pacman & Ghost Animation & Point
-    getPacmanAnimation();
-    getGhostAnimation();
-
-    //Play opening music
-    RenderGame();
-    Mix_PlayChannel(1, opening, 0);
-    while(Mix_Playing(1) != 0)
-    {
-        SDL_Delay(200);
-    }
-
-    //Play theme music
-    Mix_PlayMusic( theme, -1 );
-
     //Game loop
-    while( !quit )
+    if (start())
     {
-        //Handle Events from keyboard
-        handleEvent(quit);
+        //Main loop flag
+        bool quit = false;
 
-        //Handle motion and collision
-        Motion_Collision(quit);
-
-        //Render Game
-        RenderGame();
-
-        if (quit == true)
+        resetEverything();
+        while( !quit )
         {
-            isPlayAgain(quit);
+            //Handle Events from keyboard
+            handleEvent(quit);
+
+            //Handle motion and collision
+            Motion_Collision(quit);
+
+            //Render Game
+            RenderGame();
+
+            if (quit == true)
+            {
+                Mix_HaltMusic();
+                isPlayAgain(quit);
+
+            }
         }
     }
 

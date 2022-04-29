@@ -48,7 +48,10 @@ bool checkCollision( SDL_Rect& a, SDL_Rect& b )
 
 void Motion_Collision(bool& quit)
 {
-
+    if (pacman.Lives == 0)
+    {
+        quit = true;
+    }
     if (pacman.isDead == true) return;
 
     //Move the Pacman, Ghost and check collision
@@ -170,11 +173,6 @@ void Motion_Collision(bool& quit)
     frames++;
     if (frames / 4 >= 4) {
         frames = 0;
-    }
-
-    if (pacman.Lives == 0)
-    {
-        quit = true;
     }
 }
 

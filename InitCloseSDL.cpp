@@ -97,6 +97,62 @@ bool loadMedia()
         printf( "Failed to load background texture!\n" );
 		success = false;
     }
+
+    // Load Introduce
+	if (!Introduce.loadFromFile("Images/intro2.png"))
+    {
+        printf( "Failed to load introduce texture!\n" );
+		success = false;
+    }
+
+    // Load Start Button
+	if (!StartButton.loadFromFile("Images/StartButton.png"))
+    {
+        printf( "Failed to load startbutton texture!\n" );
+		success = false;
+    }
+
+    // Load About Button
+	if (!AboutButton.loadFromFile("Images/AboutButton.png"))
+    {
+        printf( "Failed to load aboutbutton texture!\n" );
+		success = false;
+    }
+
+    // Load Start Button Light
+    if (!StartButtonLight.loadFromFile("Images/StartButtonLight.png"))
+    {
+        printf( "Failed to load startbuttonlight texture!\n" );
+		success = false;
+    }
+
+    // Load About Button Light
+    if (!AboutButtonLight.loadFromFile("Images/AboutButtonLight.png"))
+    {
+        printf( "Failed to load aboutbuttonlight texture!\n" );
+		success = false;
+    }
+
+    // Load About Background
+    if (!AboutBackground.loadFromFile("Images/AboutBackground.jpg"))
+    {
+        printf( "Failed to load aboutbackground texture!\n" );
+		success = false;
+    }
+
+    // Load Back Button
+    if (!BackButton.loadFromFile("Images/BackButton.png"))
+    {
+        printf( "Failed to load backbutton texture!\n" );
+		success = false;
+    }
+
+    // Load Back Button Light
+    if (!BackButtonLight.loadFromFile("Images/BackButtonLight.png"))
+    {
+        printf( "Failed to load backbuttonlight texture!\n" );
+		success = false;
+    }
 	return success;
 }
 
@@ -108,6 +164,7 @@ Mix_Chunk *die = NULL;
 Mix_Chunk *eatghost = NULL;
 Mix_Chunk *eatpoint = NULL;
 Mix_Chunk *opening = NULL;
+Mix_Chunk *eatcherrysound = NULL;
 Mix_Chunk *pacmaneatcherry = NULL;
 
 bool loadSound()
@@ -145,8 +202,15 @@ bool loadSound()
         success = false;
     }
 
-    eatpoint = Mix_LoadWAV( "Sounds/Sounds_eatcherry.mp3" );
+    eatpoint = Mix_LoadWAV( "Sounds/Sounds_eatpoint.mp3" );
     if( eatpoint == NULL )
+    {
+        printf( "Failed to load low sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
+        success = false;
+    }
+
+    eatcherrysound = Mix_LoadWAV( "Sounds/pacman_eatfruit.wav" );
+    if( eatcherrysound == NULL )
     {
         printf( "Failed to load low sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
         success = false;

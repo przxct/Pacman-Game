@@ -38,16 +38,16 @@ void RenderGame()
 
     //Score
     SDL_Color textColor = { 255, 255, 255 };
-    Text.loadFromRenderedText("HIGH SCORE", textColor);
-    Text.render(810, 30);
+    Text.loadFromRenderedText("SCORE", textColor);
+    Text.render(870, 30);
     Text.loadFromRenderedText(to_string(Score), textColor);
-    Text.render(900, 90);
+    Text.render(910, 90);
 
     //Lives
     Text.loadFromRenderedText("LIVES", textColor);
-    Text.render(870, 300);
+    Text.render(870, 250);
     Text.loadFromRenderedText(to_string(pacman.Lives), textColor);
-    Text.render(920, 350);
+    Text.render(920, 300);
 
     //Update screen
     SDL_RenderPresent( gRenderer );
@@ -71,6 +71,7 @@ void resetEverything()
     pacman.reset();
     pacman.direct = 0;
     pacman.Lives = 3;
+    pacman.isDead = false;
     pacman.eatCherry = false;
     pacman.timeEatCherry = 0;
 
@@ -86,7 +87,7 @@ void resetEverything()
     }
 
     //Play theme music
-    Mix_PlayMusic( theme, -1 );
+    //Mix_PlayMusic( theme, -1 );
 }
 
 void isPlayAgain(bool& quit)
@@ -120,7 +121,82 @@ void isPlayAgain(bool& quit)
         Text.loadFromRenderedText("Press Y to play again!", textColor);
         Text.render(250, 620);
         Text.loadFromRenderedText("Press N to exit game!", textColor);
-        Text.render(250, 700);
+        Text.render(260, 700);
+        SDL_RenderPresent( gRenderer );
+    }
+}
+bool About(){
+    SDL_Event e;
+    int xMouse, yMouse;
+    while (true)
+    {
+        while( SDL_PollEvent( &e ) != 0 )
+        {
+            switch (e.type){
+                case SDL_MOUSEBUTTONDOWN:
+                {
+                    SDL_GetMouseState(&xMouse,&yMouse);
+                    if (yMouse > 750 && yMouse < 800 && xMouse > 370 && xMouse < 750){     // Back Button
+                        return true;
+                    }
+                    else continue;
+                }
+                case SDL_QUIT:
+                {
+                    return false;
+                }
+            }
+        }
+        SDL_SetRenderDrawColor( gRenderer, 0, 0, 0, 255 );
+        SDL_RenderClear( gRenderer );
+        AboutBackground.render(0, 0);
+        SDL_GetMouseState(&xMouse,&yMouse);
+        if (yMouse > 750 && yMouse < 800 && xMouse > 370 && xMouse < 750)
+            BackButtonLight.render(370, 750);
+        else
+            BackButton.render(370, 750);
+        SDL_RenderPresent( gRenderer );
+    }
+}
+bool start(){
+    SDL_Event e;
+    int xMouse, yMouse;
+    while(true)
+    {
+        while( SDL_PollEvent( &e ) != 0 )
+        {
+            switch (e.type){
+                case SDL_MOUSEBUTTONDOWN:
+                {
+                    SDL_GetMouseState(&xMouse,&yMouse);
+                    if (yMouse > 650 && yMouse < 700 && xMouse > 370 && xMouse < 750){     // Start Button
+                        return true;
+                    }
+                    if (yMouse > 730 && yMouse < 780 && xMouse > 370 && xMouse < 750){     // About Button
+                        if (!About())
+                            return false;
+                        else continue;
+                    }
+                    else continue;
+                }
+                case SDL_QUIT:
+                {
+                    return false;
+                }
+            }
+        }
+        SDL_SetRenderDrawColor( gRenderer, 0, 0, 0, 255 );
+        SDL_RenderClear( gRenderer );
+        Introduce.render(0, 0);
+        SDL_GetMouseState(&xMouse,&yMouse);
+        if (yMouse > 650 && yMouse < 700 && xMouse > 370 && xMouse < 750)
+            StartButtonLight.render(370, 650);
+        else
+            StartButton.render(370, 650);
+        if (yMouse > 730 && yMouse < 780 && xMouse > 370 && xMouse < 750)
+            AboutButtonLight.render(370, 730);
+        else
+            AboutButton.render(370, 730);
         SDL_RenderPresent( gRenderer );
     }
 }

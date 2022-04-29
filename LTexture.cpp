@@ -21,6 +21,30 @@ TTF_Font *gFont = NULL;
 //Texture fonts
 LTexture Text;
 
+// Start
+LTexture Introduce;
+
+// Start button
+LTexture StartButton;
+
+// About button
+LTexture AboutButton;
+
+// Start button light
+LTexture StartButtonLight;
+
+// About button light
+LTexture AboutButtonLight;
+
+// About background
+LTexture AboutBackground;
+
+// Back button
+LTexture BackButton;
+
+// Back button light
+LTexture BackButtonLight;
+
 //Frames
 int frames = 0;
 

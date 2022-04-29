@@ -8,5 +8,8 @@
 
 void RenderGame();
 void isPlayAgain(bool& quit);
+bool About();
+bool start();
+void resetEverything();
 
 #endif // RENDERGAME_H

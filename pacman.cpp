@@ -31,7 +31,7 @@ void Pacman::doEatCherry() {
 }
 
 void Pacman::reset() {
-    doEatCherry();
+    //doEatCherry();
     //Initialize the offsets
     mPosX = 20;
     mPosY = 20;
@@ -245,8 +245,10 @@ void Pacman::render()
             Mix_PlayMusic( theme, -1 );
             framesDeath = 0;
             pacman.Lives -= 1;
-            pacman.isDead = false;
-            pacman.reset();
+            if (pacman.Lives != 0){
+                pacman.isDead = false;
+                pacman.reset();
+            }
         }
     }
     if (pacman.isDead == false)
