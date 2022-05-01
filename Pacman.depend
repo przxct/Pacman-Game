@@ -87,65 +87,65 @@
 	"externVariables.h"
 	"creatWallandPoint.h"
 
-1651230537 source:d:\przxct\pacman\pacman\creatwallandpoint.cpp
+1651405655 source:d:\przxct\pacman\pacman\creatwallandpoint.cpp
 	"creatWallandPoint.h"
 	"externVariables.h"
 	"Motion_Collision.h"
 
-1651230537 d:\przxct\pacman\pacman\creatwallandpoint.h
+1651405655 d:\przxct\pacman\pacman\creatwallandpoint.h
 
-1651241633 d:\przxct\pacman\pacman\externvariables.h
+1651405655 d:\przxct\pacman\pacman\externvariables.h
 	"LTexture.h"
 	"pacman.h"
 	"ghost.h"
 	<SDL_mixer.h>
 
-1651230537 d:\przxct\pacman\pacman\ltexture.h
+1651405655 d:\przxct\pacman\pacman\ltexture.h
 	<bits/stdc++.h>
 	<SDL.h>
 	<SDL_image.h>
 	<stdio.h>
 	<SDL_ttf.h>
 
-1651230537 d:\przxct\pacman\pacman\pacman.h
+1651405655 d:\przxct\pacman\pacman\pacman.h
 	<SDL.h>
 	<SDL_image.h>
 	<stdio.h>
 	<SDL_ttf.h>
 	"ghost.h"
 
-1651230537 d:\przxct\pacman\pacman\ghost.h
+1651405655 d:\przxct\pacman\pacman\ghost.h
 	<SDL.h>
 	<SDL_image.h>
 	<stdio.h>
 	<SDL_ttf.h>
 
-1651230537 d:\przxct\pacman\pacman\motion_collision.h
+1651405655 d:\przxct\pacman\pacman\motion_collision.h
 	<SDL.h>
 	<SDL_image.h>
 	<stdio.h>
 	<SDL_ttf.h>
 
-1651230537 source:d:\przxct\pacman\pacman\ghost.cpp
+1651405655 source:d:\przxct\pacman\pacman\ghost.cpp
 	"ghost.h"
 	"Motion_Collision.h"
 	"externVariables.h"
 
-1651235432 source:d:\przxct\pacman\pacman\initclosesdl.cpp
+1651405655 source:d:\przxct\pacman\pacman\initclosesdl.cpp
 	"InitCloseSDL.h"
 	"externVariables.h"
 
-1651230537 d:\przxct\pacman\pacman\initclosesdl.h
+1651405655 d:\przxct\pacman\pacman\initclosesdl.h
 	<SDL.h>
 	<SDL_image.h>
 	<stdio.h>
 	<SDL_ttf.h>
 	<SDL_mixer.h>
 
-1651231856 source:d:\przxct\pacman\pacman\ltexture.cpp
+1651405655 source:d:\przxct\pacman\pacman\ltexture.cpp
 	"LTexture.h"
 
-1651240873 source:d:\przxct\pacman\pacman\main.cpp
+1651405655 source:d:\przxct\pacman\pacman\main.cpp
 	"LTexture.h"
 	"pacman.h"
 	"creatWallandPoint.h"
@@ -154,23 +154,23 @@
 	"renderGame.h"
 	"Motion_Collision.h"
 
-1651235087 d:\przxct\pacman\pacman\rendergame.h
+1651405655 d:\przxct\pacman\pacman\rendergame.h
 	<SDL.h>
 	<SDL_image.h>
 	<stdio.h>
 	<SDL_ttf.h>
 
-1651240800 source:d:\przxct\pacman\pacman\motion_collision.cpp
+1651405655 source:d:\przxct\pacman\pacman\motion_collision.cpp
 	"Motion_Collision.h"
 	"creatWallandPoint.h"
 	"externVariables.h"
 
-1651238067 source:d:\przxct\pacman\pacman\pacman.cpp
+1651405655 source:d:\przxct\pacman\pacman\pacman.cpp
 	"pacman.h"
 	"externVariables.h"
 	"Motion_Collision.h"
 
-1651253411 source:d:\przxct\pacman\pacman\rendergame.cpp
+1651405655 source:d:\przxct\pacman\pacman\rendergame.cpp
 	"renderGame.h"
 	"externVariables.h"
 	"creatWallandPoint.h"
