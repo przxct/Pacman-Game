@@ -1,6 +1,7 @@
 #include "Motion_Collision.h"
 #include "creatWallandPoint.h"
 #include "externVariables.h"
+#include "renderGame.h"
 
 bool checkCollision( SDL_Rect& a, SDL_Rect& b )
 {
@@ -92,7 +93,7 @@ void Motion_Collision(bool& quit)
                     for (int ghostIndex = 0; ghostIndex < NUMBER_GHOSTS; ghostIndex++) {
                         ghosts[ghostIndex].startTiredTime = 0;
                         ghosts[ghostIndex].startChasingTime = 0;
-                        ghosts[ghostIndex].isTired = 0;
+                        ghosts[ghostIndex].isBlock = 0;
                         ghosts[ghostIndex].isChasing = 0;
                     }
                     break;
@@ -150,7 +151,7 @@ void Motion_Collision(bool& quit)
         int nowTime = SDL_GetTicks();
         if ((nowTime - pacman.timeEatCherry) / 1000 >= 10) {
             pacman.eatCherry = false;
-            Mix_PlayMusic(theme, -1);
+            //Mix_PlayMusic(theme, -1);
         }
     }
     for (int i = 1; i <= NUMBER_GHOSTS; i++)
@@ -167,7 +168,10 @@ void Motion_Collision(bool& quit)
     for (int rowi = 1; rowi <= NUMBER_ROW; rowi++)
         for (int coli = 1; coli <= NUMBER_COL; coli++)
             if (isEateanPoint[rowi][coli] == false) remain = true;
-    if (remain == false) createPoint();
+    if (remain == false) {
+        Level++;
+        levelUp();
+    }
 
     // Update frames;
     frames++;
@@ -179,7 +183,7 @@ void Motion_Collision(bool& quit)
 //Event handler
 SDL_Event e;
 
-void handleEvent(bool &quit)
+void handleEvent(bool &quit, bool &isPause)
 {
     while( SDL_PollEvent( &e ) != 0 )
     {
@@ -187,8 +191,16 @@ void handleEvent(bool &quit)
         if( e.type == SDL_QUIT )
         {
             quit = true;
+            return;
+        }
+        if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE)
+        {
+            if (isPause)   isPause = false;
+            else           isPause = true;
+            return;
         }
         //Handle input for Pacman
-        pacman.handleEvent( e );
+        if (!isPause)
+            pacman.handleEvent( e );
     }
 }

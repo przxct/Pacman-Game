@@ -139,6 +139,20 @@ bool LTexture::loadFromRenderedText( std::string textureText, SDL_Color textColo
 	return mTexture != NULL;
 }
 
+void LTexture::renderText(int height) {
+	SDL_Rect srcRest;
+	SDL_Rect desRect;
+	srcRest.x = 0;
+	srcRest.y =  0;
+	srcRest.w = mWidth;
+	srcRest.h = mHeight;
+	desRect.x = 1100 - (300 - srcRest.w) / 2 - srcRest.w;
+	desRect.y = height;
+	desRect.w = srcRest.w;
+	desRect.h = srcRest.h;
+	SDL_RenderCopy( gRenderer, mTexture, &srcRest, &desRect);
+
+}
 void LTexture::free()
 {
 	//Free texture if it exists

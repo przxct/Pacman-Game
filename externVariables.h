@@ -41,6 +41,7 @@ extern SDL_Rect cherry;
 extern int pointX[30][30];
 extern int pointY[30][30];
 extern int Score;
+extern int Level;
 extern bool isEateanPoint[30][30];
 extern int cherryX[5];
 extern int cherryY[5];

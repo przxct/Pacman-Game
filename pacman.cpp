@@ -109,7 +109,7 @@ void Pacman::move( SDL_Rect wall[], int numbers_Wall)
             break;
         }
     }
-    if (posWall != -1) // If char is blocked by walls[posWall]
+    if (posWall != -1) // If char is blocked by walls[posWall] then extend pacman's range of movement
     {
         for (int movePixel = 1; movePixel <= 15; movePixel++) {
             // Move char up movePixel pixels;
@@ -132,7 +132,7 @@ void Pacman::move( SDL_Rect wall[], int numbers_Wall)
         }
     }
 
-    //If Pacman went too far to the left or right
+    //If Pacman went too far to the left or right 
     if( ( mPosX < 0 ) || ( mPosX + PACMAN_WIDTH > 800 ) || checkColl)
     {
         //Move back
@@ -157,7 +157,7 @@ void Pacman::move( SDL_Rect wall[], int numbers_Wall)
         }
     }
 
-    if (posWall != -1) // If Pacman is blocked by walls[posWall]
+    if (posWall != -1) // If Pacman is blocked by walls[posWall] then extend pacman's range of movement
     {
         for (int movePixel = 1; movePixel <= 15; movePixel++) {
             // Move Pacman left movePixel pixels;
@@ -242,7 +242,7 @@ void Pacman::render()
         framesDeath++;
         if (framesDeath / 9 >= 14)  // Pacman reset
         {
-            Mix_PlayMusic( theme, -1 );
+            //Mix_PlayMusic( theme, -1 );
             framesDeath = 0;
             pacman.Lives -= 1;
             if (pacman.Lives != 0){

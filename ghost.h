@@ -9,42 +9,42 @@
 class Ghost
 {
     public:
-    //The dimensions of the Ghost
-    static const int GHOST_WIDTH = 45;
-    static const int GHOST_HEIGHT = 45;
+        //The dimensions of the Ghost
+        static const int GHOST_WIDTH = 45;
+        static const int GHOST_HEIGHT = 45;
 
-    //Maximum axis velocity of the Ghost
-    static const int GHOST_VEL = 3;
+        //Maximum axis velocity of the Ghost
+        static const int GHOST_VEL = 2;
 
-    // Direct
-    int direct = 0;
+        // Direct
+        int direct = 0;
 
-    // Check if ghosts is blocked;
-    bool isBlock = false;
+        // Check if ghosts is blocked;
+        bool isBlock = false;
 
-    // tiredness of chasing the freaking pacman
-    bool isTired = false;
+        // tiredness of chasing the freaking pacman
+        bool isTired = false;
 
-    // is chasing pacman
-    bool isChasing = false;
+        // is chasing pacman
+        bool isChasing = false;
 
-    // time start chasing pacman
-    time_t startChasingTime = 0;
+        // time start chasing pacman
+        time_t startChasingTime = 0;
 
-    // time to recover
-    time_t startTiredTime = 0;
+        // time to recover
+        time_t startTiredTime = 0;
 
-    //Reset ghosts
-    void resetGhost();
+        //Reset ghosts
+        void resetGhost();
 
-    //Time death
-    int timeDeath = -1;
+        //Time death
+        int timeDeath = -1;
 
-    //Initializes the variables
-    Ghost();
+        //Initializes the variables
+        Ghost();
 
-    //Takes key presses and adjusts the Ghost's velocity
-    void handleEvent();
+        //Takes key presses and adjusts the Ghost's velocity
+        void handleEvent();
 
 		//Moves the Ghost
         void move( SDL_Rect wall[], int numbers_Wall);
@@ -60,6 +60,7 @@ class Ghost
 
         // Direct for run away
         int directRunAway();
+
 
     private:
 		//The X and Y offsets of the Ghost

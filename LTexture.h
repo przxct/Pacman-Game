@@ -25,6 +25,8 @@ class LTexture
 		//Creates image from font string
 		bool loadFromRenderedText( std::string textureText, SDL_Color textColor );
 
+		void renderText(int height);
+
 		//Deallocates texture
 		void free();
 

@@ -9,6 +9,7 @@ SDL_Rect point, cherry;
 int pointX[30][30], pointY[30][30];
 int cherryX[5], cherryY[5];
 int Score = 20;
+int Level = 1;
 bool isEateanPoint[30][30];
 
 SDL_Rect walls[NUMBER_WALLS];

@@ -8,6 +8,6 @@
 
 void Motion_Collision(bool& quit);
 bool checkCollision( SDL_Rect& a, SDL_Rect& b );
-void handleEvent(bool& quit);
+void handleEvent(bool& quit, bool& isPause);
 
 #endif // MOTION_COLLISION_H

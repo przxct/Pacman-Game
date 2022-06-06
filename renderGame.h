@@ -11,5 +11,6 @@ void isPlayAgain(bool& quit);
 bool About();
 bool start();
 void resetEverything();
+void levelUp();
 
 #endif // RENDERGAME_H

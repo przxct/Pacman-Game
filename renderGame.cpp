@@ -28,26 +28,38 @@ void RenderGame()
             if (!isEateanPoint[rowi][coli])
                 sprites.render(pointX[rowi][coli], pointY[rowi][coli], &point);
 
+    bool resetghosts = pacman.isDead;
+
     //Render Pacman
     pacman.render();
-
+    
     //Render Ghosts
     for (int i = 1; i <= 4; i++)
-        if (ghosts[i].timeDeath == -1)
+        if (ghosts[i].timeDeath == -1) {
+            if (resetghosts && pacman.mPosX == 20 && pacman.mPosY == 20) {
+                ghosts[i].resetGhost();
+            }
             ghosts[i].render(i - 1);
+        }
 
     //Score
     SDL_Color textColor = { 255, 255, 255 };
     Text.loadFromRenderedText("SCORE", textColor);
-    Text.render(870, 30);
+    Text.renderText(30);
     Text.loadFromRenderedText(to_string(Score), textColor);
-    Text.render(910, 90);
+    Text.renderText(80);
 
     //Lives
     Text.loadFromRenderedText("LIVES", textColor);
-    Text.render(870, 250);
+    Text.renderText(180);
     Text.loadFromRenderedText(to_string(pacman.Lives), textColor);
-    Text.render(920, 300);
+    Text.renderText(230);
+
+    //Level
+    Text.loadFromRenderedText("LEVEL", textColor);
+    Text.renderText(330);
+    Text.loadFromRenderedText(to_string(Level), textColor);
+    Text.renderText(380);
 
     //Update screen
     SDL_RenderPresent( gRenderer );
@@ -66,6 +78,7 @@ void resetEverything()
     //Reset frames and score
     frames = 0;
     Score = 0;
+    Level = 1;
 
     //Reset ghosts and pacman
     pacman.reset();
@@ -88,6 +101,35 @@ void resetEverything()
 
     //Play theme music
     //Mix_PlayMusic( theme, -1 );
+}
+
+void levelUp()
+{
+    //Create Walls
+    createWalls();
+    createPoint();
+
+    //Create Pacman & Ghost Animation & Point
+    getPacmanAnimation();
+    getGhostAnimation();
+
+    //Reset ghosts and pacman
+    pacman.reset();
+    pacman.direct = 0;
+    pacman.isDead = false;
+    pacman.eatCherry = false;
+    pacman.timeEatCherry = 0;
+
+    for (int i = 1; i <= NUMBER_GHOSTS; i++)
+        ghosts[i].resetGhost();
+
+    //Play opening music
+    RenderGame();
+    Mix_PlayChannel(1, opening, 0);
+
+    while (Mix_Playing(1) != 0) {
+        SDL_Delay(200);
+    }
 }
 
 void isPlayAgain(bool& quit)

@@ -37,25 +37,36 @@ int main( int argc, char* args[] )
     {
         //Main loop flag
         bool quit = false;
+        bool isPause = false;
 
         resetEverything();
         while( !quit )
         {
             //Handle Events from keyboard
-            handleEvent(quit);
+            //cout << isPause << " " << pacman.mPosX << " " << pacman.mPosY << " " << pacman.mVelX << " " << pacman.mVelY << '\n';
+            bool previousPause = isPause;
+            handleEvent(quit, isPause);
 
-            //Handle motion and collision
-            Motion_Collision(quit);
-
-            //Render Game
-            RenderGame();
-
-            if (quit == true)
+            if (quit)
+                break;
+            
+            if (!isPause && !previousPause) 
             {
-                Mix_HaltMusic();
-                isPlayAgain(quit);
+                //Handle motion and collision
+                Motion_Collision(quit);
 
+                //Render Game
+                if (!quit) 
+                {
+                    RenderGame();
+                }
+                else
+                {
+                    Mix_HaltMusic();
+                    isPlayAgain(quit);
+                }
             }
+            else RenderGame();
         }
     }
 

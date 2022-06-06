@@ -23,7 +23,6 @@ Ghost::Ghost()
 
     // Initialize direct and isBlock
     direct = 3;
-    isBlock = false;
 }
 
 void Ghost::resetGhost()
@@ -43,7 +42,7 @@ void Ghost::resetGhost()
 
     // Initialize direct and isBlock
     direct = 3;
-    isBlock = false;
+    isChasing = false;
 }
 
 int Distance(int X1, int Y1, int X2, int Y2)
@@ -52,61 +51,61 @@ int Distance(int X1, int Y1, int X2, int Y2)
 }
 
 void Ghost::handleEvent() {
-//    cout << isChasing << " " << startChasingTime << "\n";
     time_t currentTime = time(nullptr);
-    if (Distance(pacman.mPosX, pacman.mPosY, mPosX, mPosY) <= 15000) {
-        if (!isChasing && !isTired) {
-            isChasing = true;
-            startChasingTime = currentTime;
-        } else if (isChasing && !isTired) {
-            if (!pacman.eatCherry) {
-                direct = directChasing();
-            }
-            if (pacman.eatCherry) {
-                direct = directRunAway();
-            }
-            if (currentTime - startChasingTime >= CHASING_TIME) {
-                isChasing = false;
-                isTired = true;
-                startTiredTime = currentTime;
-            }
-        }
-    } else {
-        if (isChasing) {
-            isChasing = false;
-        }
-    }
     if (isTired) {
         if (currentTime - startTiredTime >= TIRED_TIME) {
             isTired = false;
         }
     }
-    if (isBlock) {
-        direct = rand() % 4;
+    if (pacman.eatCherry) {
+        direct = directRunAway();
+        isChasing = false;
+        isTired = false;
     }
-    if (rand() % 100 < PROB_CHANGE_DIRECTION && !isChasing) {
+    else {
+        if (Distance(pacman.mPosX, pacman.mPosY, mPosX, mPosY) <= 30000) {
+            if (!isChasing) {
+                if (!isTired) {
+                    isChasing = true;
+                    direct = directChasing();
+                    startChasingTime = currentTime;
+                }
+            }
+            else {
+                if (currentTime - startChasingTime >= CHASING_TIME) {
+                    isChasing = false;
+                    isTired = true;
+                    startTiredTime = currentTime;
+                }
+                else {
+                    direct = directChasing();
+                }
+            }
+        }
+    }
+    if (isBlock) {
         direct = rand() % 4;
     }
     switch (direct) {
         case Up: {
-            mVelY = -GHOST_VEL;
+            mVelY = -GHOST_VEL - (Level - 1);
             mVelX = 0;
             break;
         }
         case Down: {
-            mVelY = GHOST_VEL;
+            mVelY = GHOST_VEL + (Level - 1);
             mVelX = 0;
             break;
         }
         case Left:
         {
-            mVelX = -GHOST_VEL;
+            mVelX = -GHOST_VEL - (Level - 1);
             mVelY = 0;
             break;
         }
         case Right:
         {
-            mVelX = GHOST_VEL;
+            mVelX = GHOST_VEL + (Level - 1);
             mVelY = 0;
             break;
         }
@@ -122,15 +121,15 @@ bool canMove(SDL_Rect ghost_temp, SDL_Rect wall[], int numbers_Wall)
 
 int Ghost::directChasing()
 {
-    int dx[] = {GHOST_VEL, 0        , -GHOST_VEL, 0         };
-    int dy[] = {0        , GHOST_VEL, 0         , -GHOST_VEL};
+    int dx[] = {GHOST_VEL + (Level - 1), 0 , -GHOST_VEL - (Level - 1), 0};
+    int dy[] = {0 , GHOST_VEL + (Level - 1), 0 , -GHOST_VEL - (Level - 1)};
     int directChase = 0;
     int distanceMin = 1e9 + 7;
     for (int i = 0; i < 4; i++)
     {
         int X = mPosX + dx[i];
         int Y = mPosY + dy[i];
-        if( ( X < 0 ) || ( X + GHOST_WIDTH > 800 ) || (Y < 0) || ( mPosY + GHOST_HEIGHT > SCREEN_HEIGHT )) continue;
+        if( ( X < 0 ) || ( X + GHOST_WIDTH > 800 ) || (Y < 0) || ( Y + GHOST_HEIGHT > SCREEN_HEIGHT )) continue;
         SDL_Rect ghost_temp;
         ghost_temp.x = X;             ghost_temp.y = Y;
         ghost_temp.w = GHOST_WIDTH;   ghost_temp.h = GHOST_HEIGHT;
@@ -138,6 +137,7 @@ int Ghost::directChasing()
             canMove(ghost_temp, walls, NUMBER_WALLS) == true) {
             distanceMin = Distance(X, Y, pacman.mPosX, pacman.mPosY);
             directChase = i;
+            //cout << X << " " << Y << " " << i << '\n';
         }
     }
     return directChase;
@@ -145,15 +145,15 @@ int Ghost::directChasing()
 
 int Ghost::directRunAway()
 {
-    int dx[] = {GHOST_VEL, 0        , -GHOST_VEL, 0         };
-    int dy[] = {0        , GHOST_VEL, 0         , -GHOST_VEL};
+    int dx[] = {GHOST_VEL, 0 , -GHOST_VEL, 0};
+    int dy[] = {0 , GHOST_VEL, 0 , -GHOST_VEL};
     int directRunAway = 0;
     int distanceMax = 0;
     for (int i = 0; i < 4; i++)
     {
         int X = mPosX + dx[i];
         int Y = mPosY + dy[i];
-        if( ( X < 0 ) || ( X + GHOST_WIDTH > 800 ) || (Y < 0) || ( mPosY + GHOST_HEIGHT > SCREEN_HEIGHT )) continue;
+        if( ( X < 0 ) || ( X + GHOST_WIDTH > 800 ) || (Y < 0) || ( Y + GHOST_HEIGHT > SCREEN_HEIGHT )) continue;
         SDL_Rect ghost_temp;
         ghost_temp.x = X;             ghost_temp.y = Y;
         ghost_temp.w = GHOST_WIDTH;   ghost_temp.h = GHOST_HEIGHT;
@@ -165,7 +165,6 @@ int Ghost::directRunAway()
     }
     return directRunAway;
 }
-
 
 void Ghost::move( SDL_Rect wall[], int numbers_Wall)
 {
